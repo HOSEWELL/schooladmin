@@ -7,13 +7,17 @@ import java.io.PrintWriter;
 
 public class WelcomePage implements Servlet {
 
+    private ServletConfig config;
+
+    @Override
     public void init(ServletConfig servletConfig) throws ServletException {
-        //called when servlet is starting
+        this.config = servletConfig;
         System.out.println("Servlet Started and initialized");
     }
 
+    @Override
     public ServletConfig getServletConfig() {
-        return null;
+        return this.config;
     }
 
     public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
