@@ -29,7 +29,7 @@ public class AboutUsPage extends GenericServlet {
 
 // Header
         writer.println("<header>");
-        writer.println("<h1>About Systech Training Academy</h1>");
+        writer.println("<h1>About Ezen Training Academy</h1>");
         writer.println("</header>");
 
 // Who we are
@@ -64,7 +64,7 @@ public class AboutUsPage extends GenericServlet {
 
 // Navigation
         writer.println("<section>");
-        writer.println("<a href=\"./\"><- Go back to Home Page</a>");
+        writer.println("<a href=\"./\"> &larr; Go back to Home Page</a>");
         writer.println("</section>");
 
         writer.println("</body>");
