@@ -5,11 +5,11 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
-    <servlet-name>WelcomePage</servlet-name>
-    <servlet-class>app.WelcomePage</servlet-class>
+    <servlet-name>Hosewell</servlet-name>
+    <servlet-class>app.Hosewell</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>WelcomePage</servlet-name>
+    <servlet-name>Hosewell</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 </web-app>
