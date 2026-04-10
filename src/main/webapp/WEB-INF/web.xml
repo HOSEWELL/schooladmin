@@ -1,68 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>Cohort 12 Training Portal</display-name>
 
+  <context-param>
+    <param-name>systemPassword</param-name>
+    <param-value>12345</param-value>
+  </context-param>
 
   <servlet>
-    <servlet-name>LeaveHome</servlet-name>
-    <servlet-class>app.LeaveHome</servlet-class>
+    <servlet-name>WelcomePage</servlet-name>
+    <servlet-class>app.WelcomePage</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>LeaveHome</servlet-name>
+    <servlet-name>WelcomePage</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>Policy</servlet-name>
-    <servlet-class>app.LeavePolicy</servlet-class>
+    <servlet-name>AboutUs</servlet-name>
+    <servlet-class>app.AboutUsPage</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Policy</servlet-name>
-    <url-pattern>/policy</url-pattern>
+    <servlet-name>AboutUs</servlet-name>
+    <url-pattern>/aboutus</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>Apply</servlet-name>
-    <servlet-class>app.LeaveApplyServlet</servlet-class>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>app.RegisterPage</servlet-class>
+    <init-param>
+      <param-name>pageName</param-name>
+      <param-value>Register - Training Academy</param-value>
+    </init-param>
+    <init-param>
+      <param-name>pageHeader</param-name>
+      <param-value>Training Registration - IT</param-value>
+    </init-param>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Apply</servlet-name>
-    <url-pattern>/apply</url-pattern>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/register</url-pattern>
   </servlet-mapping>
 
-<!--  <servlet>-->
-<!--    <servlet-name>WelcomePage</servlet-name>-->
-<!--    <servlet-class>app.WelcomePage</servlet-class>-->
-<!--  </servlet>-->
-<!--  <servlet-mapping>-->
-<!--    <servlet-name>WelcomePage</servlet-name>-->
-<!--    <url-pattern>/</url-pattern>-->
-<!--  </servlet-mapping>-->
-<!--  <servlet>-->
-<!--    <servlet-name>Hosewell</servlet-name>-->
-<!--    <servlet-class>app.Hosewell</servlet-class>-->
-<!--  </servlet>-->
-<!--  <servlet-mapping>-->
-<!--    <servlet-name>Hosewell</servlet-name>-->
-<!--    <url-pattern>/hosewell</url-pattern>-->
-<!--  </servlet-mapping>-->
-<!--  <servlet>-->
-<!--    <servlet-name>AboutUs</servlet-name>-->
-<!--    <servlet-class>app.AboutUsPage</servlet-class>-->
-<!--  </servlet>-->
-<!--  <servlet-mapping>-->
-<!--    <servlet-name>AboutUs</servlet-name>-->
-<!--    <url-pattern>/aboutus</url-pattern>-->
-<!--  </servlet-mapping>-->
-<!--  <servlet>-->
-<!--    <servlet-name>Register</servlet-name>-->
-<!--    <servlet-class>app.RegisterPage</servlet-class>-->
-<!--  </servlet>-->
-<!--  <servlet-mapping>-->
-<!--    <servlet-name>Register</servlet-name>-->
-<!--    <url-pattern>/register</url-pattern>-->
-<!--  </servlet-mapping>-->
+  <servlet>
+    <servlet-name>Footer</servlet-name>
+    <servlet-class>app.FooterPage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Footer</servlet-name>
+    <url-pattern>/footer</url-pattern>
+  </servlet-mapping>
 </web-app>
