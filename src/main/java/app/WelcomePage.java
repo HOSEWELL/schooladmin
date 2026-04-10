@@ -1,6 +1,8 @@
 package app;
 
 import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +19,11 @@ public class WelcomePage implements Servlet {
     }
 
     public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
+        HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
+        HttpSession session = httpRequest.getSession(false); //dont create new session
+        if (session != null)
+            session.invalidate();
+
         servletResponse.setContentType("text/html");
         PrintWriter writer = servletResponse.getWriter();
 
@@ -72,7 +79,7 @@ public class WelcomePage implements Servlet {
         writer.println("</section>");
 
         writer.println("<section>");
-        writer.println("<a href=\"./register\">Register</a>");
+        writer.println("<a href=\"./login\">Login</a>");
         writer.println("</section>");
 
         writer.println("</body>");

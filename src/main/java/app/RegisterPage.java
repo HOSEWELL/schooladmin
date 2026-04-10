@@ -2,41 +2,33 @@ package app;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 public class RegisterPage extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException{
 
-        ServletConfig config = getServletConfig();
-
-        String username = req.getParameter("username");
-        if (username == null)
-            username = "";
-        String password = req.getParameter("password");
-        if  (password == null)
-            password = "";
-
-        System.out.println("submitted: " + username + " && " + password);
-
-        String usernameConfig = config.getInitParameter("username");
-        String passwordConfig = config.getInitParameter("password");
-        System.out.println("configs: username - " + usernameConfig);
-        System.out.println("configs: password - " + passwordConfig);
-
-        if(!(username.equalsIgnoreCase(usernameConfig)
-                && password.equalsIgnoreCase(passwordConfig))){
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/");
-            dispatcher.forward(req, resp);
+        //if session exist use it, otherwise create a new one
+        HttpSession session = req.getSession();
+        System.out.println("session.getAttribute(\"SESSION_ID\"): " + session.getAttribute("SESSION_ID"));
+        if(session.getAttribute("SESSION_ID") == null){
+            req.getSession().invalidate();
+            resp.sendRedirect("./login");
         }
+
+        ServletConfig config = getServletConfig();
 
         PrintWriter writer = resp.getWriter();
         writer.println("<!DOCTYPE html>");
@@ -61,6 +53,8 @@ public class RegisterPage extends HttpServlet {
         writer.println("<header>");
         writer.println("<h1>");
         writer.println(config.getInitParameter("pageHeader"));
+        writer.print("Logged In User: ");
+        writer.println(session.getAttribute("UserActualName"));
         writer.println("</h1>");
         writer.println("</header>");
 
@@ -92,7 +86,24 @@ public class RegisterPage extends HttpServlet {
 
     }
 
+    @SuppressWarnings("unchecked")
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //if session exist use it, otherwise create a new one
+        HttpSession session = req.getSession();
+        System.out.println("session.getAttribute(\"SESSION_ID\"): " + session.getAttribute("SESSION_ID"));
+        if(session.getAttribute("SESSION_ID") == null){
+            req.getSession().invalidate();
+            resp.sendRedirect("./login");
+        }
+
+        List<Person> personsRegister;
+        if (session.getAttribute("PERSONS_DB") == null)
+            personsRegister = new ArrayList<Person>();
+        else
+            personsRegister = (List<Person>) session.getAttribute("PERSONS_DB");
+
+        personsRegister.add(new Person(req.getParameter("name"),
+            req.getParameter("nationalId")));
 
         PrintWriter writer = resp.getWriter();
 
@@ -120,30 +131,27 @@ public class RegisterPage extends HttpServlet {
         writer.println("<h2>Student Registered</h2>");
         writer.println("<p>");
 
-        Enumeration<String> paramNames = req.getParameterNames();
+        writer.println("<table style='border-collapse: collapse; width: 50%; font-family: Arial, sans-serif;'>");
 
-        boolean studentIsMike = false;
-        while(paramNames.hasMoreElements()){
-            String paramName = paramNames.nextElement();
-            String paramValue = req.getParameterValues(paramName)[0];
+        // Header row
+        writer.println("<tr>");
+        writer.println("<th style='border: 1px solid #000; padding: 8px; background-color: #f2f2f2;'>ID</th>");
+        writer.println("<th style='border: 1px solid #000; padding: 8px; background-color: #f2f2f2;'>Name</th>");
+        writer.println("</tr>");
 
-            writer.println("<h1>" + paramName + "</h1>: ");
-            writer.println(paramValue);
-            writer.println("<br/>");
-
-            if (!studentIsMike)
-                studentIsMike = paramValue.contains("mike");
+        for (Person person : personsRegister) {
+            writer.println("<tr>");
+            writer.println("<td style='border: 1px solid #000; padding: 8px;'>" + person.getNationalId() + "</td>");
+            writer.println("<td style='border: 1px solid #000; padding: 8px;'>" + person.getName() + "</td>");
+            writer.println("</tr>");
         }
 
-        System.out.println("studentIsMike: " + studentIsMike);
-        if (studentIsMike) {
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/");
-            dispatcher.forward(req, resp);
-        } else {
-            RequestDispatcher dispatcher = req.getRequestDispatcher("footer");
-            dispatcher.include(req, resp);
-        }
+        writer.println("</table>");
 
+        session.setAttribute("PERSONS_DB", personsRegister);
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("footer");
+        dispatcher.include(req, resp);
         writer.println("</p>");
         writer.println("</section>");
 
