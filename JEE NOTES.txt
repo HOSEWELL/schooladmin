@@ -55,9 +55,19 @@ a) HttpServletRequest
 
 b) HttpServletResponse
 
-c) RequestDispatcher
+c) RequestDispatcher - forwarding & including
 
-d) ServletConfig
+d) ServletConfig - init params
+
+e) ServletContext -
+
+f) HttpSession - session management
+
+g) Listeners & Events
+
+i) Filters
+
+
 
 
 

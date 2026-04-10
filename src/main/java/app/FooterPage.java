@@ -16,7 +16,7 @@ public class FooterPage extends HttpServlet {
 
         // Navigation
         writer.println("<section>");
-        writer.println("<a href='./'>&larr; Back to Home | For More Details</a>");
+        writer.println("<a href='./'>&larr; Back to Home | Log Out</a>");
         writer.println("</section>");
 
     }
