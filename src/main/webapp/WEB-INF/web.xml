@@ -76,6 +76,18 @@
     <servlet-name>Login</servlet-name>
       <url-pattern>/login</url-pattern>
   </servlet-mapping>
+  <listener>
+    <listener-class>app.AppContextListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>app.AppSessionListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>app.AppRequestListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>app.AppAttributeListener</listener-class>
+  </listener>
   <filter>
     <filter-name>LogInFilter</filter-name>
     <filter-class>app.LoginFilter</filter-class>
