@@ -8,19 +8,6 @@
     <param-name>applicationName</param-name>
     <param-value>COHORT 12</param-value>
   </context-param>
-
-  <listener>
-    <listener-class>app.AppContextListener</listener-class>
-  </listener>
-  <listener>
-    <listener-class>app.AppSessionListener</listener-class>
-  </listener>
-  <listener>
-    <listener-class>app.AppRequestListener</listener-class>
-  </listener>
-  <listener>
-    <listener-class>app.AppAttributeListener</listener-class>
-  </listener>
 </web-app>
 
 <!--<web-app>-->
