@@ -1,11 +1,12 @@
 package app;
 
 import jakarta.servlet.*;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-
+import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
+
+@WebServlet(name = "WelcomePage",
+        urlPatterns = { "/" })
 
 public class WelcomePage implements Servlet {
 

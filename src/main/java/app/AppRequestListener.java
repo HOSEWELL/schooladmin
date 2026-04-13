@@ -2,7 +2,11 @@ package app;
 
 import jakarta.servlet.ServletRequestEvent;
 import jakarta.servlet.ServletRequestListener;
+import jakarta.servlet.annotation.WebListener;
 import jakarta.servlet.http.HttpServletRequest;
+
+
+@WebListener
 
 public class AppRequestListener implements ServletRequestListener {
 

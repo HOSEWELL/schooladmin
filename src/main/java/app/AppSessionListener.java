@@ -1,8 +1,11 @@
 package app;
 
+import jakarta.servlet.annotation.WebListener;
 import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
 import jakarta.servlet.ServletContext;
+
+@WebListener
 
 public class AppSessionListener implements HttpSessionListener {
 

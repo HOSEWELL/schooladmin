@@ -4,6 +4,8 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebInitParam;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,6 +16,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+
+@WebServlet(name = "Register",
+        urlPatterns = { "/register" },
+        initParams = {
+                @WebInitParam(name = "pageName", value = "Register - Training Academy"),
+                @WebInitParam(name = "pageHeader", value = "Training Registration - IT")
+        })
 
 public class RegisterPage extends HttpServlet {
 

@@ -1,7 +1,10 @@
 package app;
 
 import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebListener;
 import jakarta.servlet.http.*;
+
+@WebListener
 
 public class AppAttributeListener implements
         ServletContextAttributeListener,
