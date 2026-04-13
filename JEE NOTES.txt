@@ -63,9 +63,9 @@ e) ServletContext -
 
 f) HttpSession - session management
 
-g) Listeners & Events
+g) Filters
 
-i) Filters
+i) Listeners & Events
 
 
 
