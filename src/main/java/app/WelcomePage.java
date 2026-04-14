@@ -2,25 +2,24 @@ package app;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet(name = "WelcomePage",
-        urlPatterns = { "/" })
-
+    urlPatterns = { "/" }
+)
 public class WelcomePage implements Servlet {
 
-    private ServletConfig config;
-
-    @Override
     public void init(ServletConfig servletConfig) throws ServletException {
-        this.config = servletConfig;
+        //called when servlet is starting
         System.out.println("Servlet Started and initialized");
     }
 
-    @Override
     public ServletConfig getServletConfig() {
-        return this.config;
+        return null;
     }
 
     public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {

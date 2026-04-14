@@ -8,9 +8,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-
 @WebFilter(urlPatterns = {"/*"})
-
 public class LoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;

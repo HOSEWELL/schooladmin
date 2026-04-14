@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/footer")
-
 public class FooterPage extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)

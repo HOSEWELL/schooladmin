@@ -14,14 +14,12 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(
-        name = "Login",
-        urlPatterns = "/login",
-        initParams = {
-                @WebInitParam(name = "username", value = "admin"),
-                @WebInitParam(name = "password", value = "12345")
-        }
-)
+@WebServlet(name = "Login",
+    urlPatterns = { "/login" },
+    initParams = {
+            @WebInitParam(name = "username", value = "admin"),
+            @WebInitParam(name = "password", value = "12345")
+    })
 public class LoginPage extends HttpServlet {
 
     @Override
@@ -107,7 +105,7 @@ public class LoginPage extends HttpServlet {
                 && password.equalsIgnoreCase(passwordConfig)){
             //you must create new session
             HttpSession session = request.getSession(true);
-            session.setAttribute("UserActualName", "Hosewell");
+            session.setAttribute("UserActualName", "Mike Bavon");
             System.out.println("session.getId(): " + session.getId());
             session.setAttribute("SESSION_ID", session.getId());
 
