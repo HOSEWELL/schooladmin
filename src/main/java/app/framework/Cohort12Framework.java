@@ -1,7 +1,6 @@
-package app;
+package app.framework;
 
 import java.io.PrintWriter;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +55,7 @@ public class Cohort12Framework {
 
         writer.println("<tr>");
         for (String fieldName : fieldNames) {
+
             // Header row
             writer.println("<th style='border: 1px solid #000; padding: 8px; background-color: #f2f2f2;'>" + fieldName + "</th>");
         }
@@ -83,7 +83,7 @@ public class Cohort12Framework {
 
 // Navigation
         writer.println("<section>");
-        writer.println("<a href=\"./register\">&larr; Register " + cohort12Table.label() + " </a>");
+        writer.println("<a href=\"" + cohort12Table.registerUrl() + "\">&larr; Register " + cohort12Table.label() + " </a>");
         writer.println("</section>");
 
     }

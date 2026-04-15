@@ -1,8 +1,9 @@
-package app;
+package app.action;
 
+import app.framework.Cohort12Framework;
+import app.model.School;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebInitParam;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,10 +15,8 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 @WebServlet(name = "Register",

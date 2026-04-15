@@ -1,11 +1,27 @@
-package app;
+package app.model;
+
+import app.framework.Cohort12Form;
+import app.framework.Cohort12FormField;
+import app.framework.Cohort12Table;
+import app.framework.Cohort12TableCol;
 
 import java.io.Serializable;
 
+@Cohort12Form(label = "Person Register",
+        actionUrl = "./register_person")
+@Cohort12Table(label = "Persons",
+        tableUrl = "./person_lists",
+        registerUrl = "./register_person")
 public class Person implements Serializable {
 
+    @Cohort12FormField(label = "Person Name",
+        placeholder = "Please enter Person Name")
+    @Cohort12TableCol(label = "Person Name")
     private String name;
 
+    @Cohort12FormField(label = "National ID",
+            placeholder = "Please enter ID")
+    @Cohort12TableCol(label = "National ID")
     private String nationalId;
 
     private String address;

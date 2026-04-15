@@ -1,32 +1,24 @@
-package app;
+package app.action;
 
+import app.framework.Cohort12Framework;
+import app.model.School;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
-@WebServlet("/list_registered")
-public class ListRegisteredPage extends HttpServlet {
+@WebServlet("/school_lists")
+public class SchoolList  extends BaseAction<School> {
 
     @SuppressWarnings("unchecked")
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //if session exist use it, otherwise create a new one
         HttpSession session = req.getSession();
-
-        List<School> register;
-        if (session.getAttribute("PERSONS_DB") == null)
-            register = new ArrayList<>();
-        else
-            register = (List<School>) session.getAttribute("PERSONS_DB");
 
         PrintWriter writer = resp.getWriter();
 
@@ -49,7 +41,7 @@ public class ListRegisteredPage extends HttpServlet {
         writer.println("<h1>About COHORT 12 Training PORTA</h1>");
         writer.println("</header>");
 
-        Cohort12Framework.htmlTable(writer, School.class, register);
+        Cohort12Framework.htmlTable(writer, getType(), returnData(session));
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("footer");
         dispatcher.include(req, resp);

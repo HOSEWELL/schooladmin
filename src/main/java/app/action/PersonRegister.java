@@ -1,5 +1,6 @@
-package app;
+package app.action;
 
+import app.model.Person;
 import jakarta.servlet.annotation.WebInitParam;
 import jakarta.servlet.annotation.WebServlet;
 
@@ -9,6 +10,6 @@ import jakarta.servlet.annotation.WebServlet;
         @WebInitParam(name = "pageName", value = "Register - Training Academy"),
         @WebInitParam(name = "pageHeader", value = "Training Registration - IT")
     })
-public class PersonRegister extends CohortServeltAction<Person>{
+public class PersonRegister extends BaseAction<Person> {
 
 }

@@ -1,4 +1,4 @@
-package app;
+package app.shared;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,7 +18,11 @@ public class FooterPage extends HttpServlet {
 
         // Navigation
         writer.println("<section>");
-        writer.println("<a href='./'>&larr; Back to Home | Log Out</a>");
+        writer.println("<a href='./home'>&larr; Back to Home</a>");
+        writer.println("</section>");
+
+        writer.println("<section>");
+        writer.println("<a href='./'>&larr; Log Out</a>");
         writer.println("</section>");
 
     }
