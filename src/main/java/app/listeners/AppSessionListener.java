@@ -1,4 +1,4 @@
-package app;
+package app.listeners;
 
 import jakarta.servlet.annotation.WebListener;
 import jakarta.servlet.http.HttpSessionEvent;

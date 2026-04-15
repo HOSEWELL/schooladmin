@@ -6,7 +6,7 @@
   <display-name>Archetype Created Web Application</display-name>
   <context-param>
     <param-name>applicationName</param-name>
-    <param-value>COHORT 12</param-value>
+    <param-value>School</param-value>
   </context-param>
 
 </web-app>

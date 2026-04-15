@@ -1,4 +1,4 @@
-package app;
+package app.shared;
 
 import jakarta.servlet.GenericServlet;
 import jakarta.servlet.ServletException;

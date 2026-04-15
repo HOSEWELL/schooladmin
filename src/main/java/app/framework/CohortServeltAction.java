@@ -1,11 +1,7 @@
-package app;
+package app.framework;
 
 import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebInitParam;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,40 +10,31 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
-@WebServlet(name = "Register",
-    urlPatterns = { "/register" },
-    initParams = {
-        @WebInitParam(name = "pageName", value = "Register - Training Academy"),
-        @WebInitParam(name = "pageHeader", value = "Training Registration - IT")
-    })
-public class RegisterPage extends HttpServlet {
+public class CohortServeltAction<T> extends HttpServlet {
 
-    public void doGet(HttpServletRequest req, HttpServletResponse resp)
-        throws ServletException, IOException{
+    @SuppressWarnings("unchecked")
+    public Class<T> getEntityClass() {
+        return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
 
-        //if session exist use it, otherwise create a new one
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        System.out.println("session.getAttribute(\"SESSION_ID\"): " + session.getAttribute("SESSION_ID"));
-        if(session.getAttribute("SESSION_ID") == null){
+        if (session.getAttribute("SESSION_ID") == null) {
             req.getSession().invalidate();
             resp.sendRedirect("./login");
+            return;
         }
-
-        ServletConfig config = getServletConfig();
 
         PrintWriter writer = resp.getWriter();
         writer.println("<!DOCTYPE html>");
         writer.println("<html>");
         writer.println("<head>");
-        writer.println("<title>");
-        writer.println(config.getInitParameter("pageName"));
-        writer.println("</title>");
+        writer.println("<title>Register</title>");
         writer.println("<style>");
         writer.println("body { font-family: Arial; margin: 40px; background-color: #f4f6f8; }");
         writer.println("header { background-color: #2c3e50; color: white; padding: 15px; }");
@@ -57,21 +44,16 @@ public class RegisterPage extends HttpServlet {
         writer.println("a { display: inline-block; margin-top: 10px; color: #3498db; }");
         writer.println("</style>");
         writer.println("</head>");
-
         writer.println("<body>");
 
-// Header
         writer.println("<header>");
-        writer.println("<h1>");
-        writer.println(config.getInitParameter("pageHeader"));
+        writer.println("<h1>Registration Form</h1>");
         writer.print("Logged In User: ");
         writer.println(session.getAttribute("UserActualName"));
-        writer.println("</h1>");
         writer.println("</header>");
 
-// Form
         writer.println("<section>");
-        Cohort12Framework.htmlForm(writer, School.class);
+        Cohort12Framework.htmlForm(writer, getEntityClass());
         writer.println("</section>");
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("footer");
@@ -79,33 +61,33 @@ public class RegisterPage extends HttpServlet {
 
         writer.println("</body>");
         writer.println("</html>");
-
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //if session exist use it, otherwise create a new one
         HttpSession session = req.getSession();
+        Class<T> clazz = getEntityClass();
 
-        List<School> register;
-        if (session.getAttribute("PERSONS_DB") == null)
+        String dbKey = clazz.getSimpleName().toUpperCase() + "_DB";
+
+        List<T> register;
+        if (session.getAttribute(dbKey) == null)
             register = new ArrayList<>();
         else
-            register = (List<School>) session.getAttribute("PERSONS_DB");
+            register = (List<T>) session.getAttribute(dbKey);
 
-        School school = new School();
         try {
-            BeanUtils.populate(school, req.getParameterMap());
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
+            T entity = clazz.getDeclaredConstructor().newInstance();
+            BeanUtils.populate(entity, req.getParameterMap());
+            register.add(entity);
+            session.setAttribute(dbKey, register);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        register.add(school);
-
-        session.setAttribute("PERSONS_DB", register);
-
-        resp.sendRedirect("./list_registered");
+        Cohort12Table tableAnnot = clazz.getAnnotation(Cohort12Table.class);
+        String redirectUrl = (tableAnnot != null) ? tableAnnot.tableUrl() : "./list_registered";
+        resp.sendRedirect(redirectUrl);
     }
 }

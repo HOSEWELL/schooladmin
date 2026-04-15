@@ -1,4 +1,9 @@
-package app;
+package app.models;
+
+import app.framework.Cohort12Form;
+import app.framework.Cohort12FormField;
+import app.framework.Cohort12Table;
+import app.framework.Cohort12TableCol;
 
 import java.io.Serializable;
 

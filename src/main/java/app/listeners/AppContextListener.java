@@ -1,4 +1,4 @@
-package app;
+package app.listeners;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
